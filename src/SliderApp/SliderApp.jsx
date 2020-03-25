@@ -5,15 +5,10 @@ import SectionThird from '../SectionThird/SectionThird'
 
 export default class SliderApp extends React.Component
 {
-    test = () =>
-    {
-        console.log( 'asdf' )
-    }
-
     render()
     {
         return (
-            <div className='sliderInner' onTouchStart={this.test} >
+            <div className='sliderInner' style={{ top: this.props.scroll + "px" }} onTouchStart={( event ) => this.props.touchStart( event )} onTouchEnd={( event ) => this.props.touchEnd( event )} >
                 <SectionFirst />
                 <SectionSecond />
                 <SectionThird />
