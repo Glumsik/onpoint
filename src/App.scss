@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('//db.onlinewebfonts.com/c/07a38bbad54db72a40b406bed1c72f53?family=Gotham+Pro');
+@import url('//db.onlinewebfonts.com/c/323b7229abd327d428021a6d49a7413d?family=Gotham+Pro+Light');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+body
+{
+ margin: 0;
+}
+
+.sliderOuter
+{
+    position: absolute;
+    width: 1024px;
+    height: 768px;
+    overflow: hidden;
+}
+
+.sliderInner
+{
+    position: relative;
+    top: -1536px;
+}
+

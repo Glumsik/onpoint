@@ -1,0 +1,23 @@
+.sectionSecond
+{
+    position: relative;
+    width: 1024px;
+    height: 768px;
+    background-image: url('../img/ice_1.png'), url('../img/ice_2.png'), url('../img/ice_3.png'), url('../img/ice_4.png'), url('../img/bg_SectionSecond.png');
+    background-position: right 6%, right 25% top 85%, right 75% top 66%, right 92% top 22%;
+    background-size: 14.5% , 7.5%, 10%, 4%, cover;
+    background-repeat: no-repeat;
+}
+
+.sectionSecond__title
+{
+    display: inline-block;
+    text-align: center;
+    font-family: 'Gotham Pro Light',sans-serif;
+    font-weight: 200;
+    margin: 244px 0 0;
+    padding: 0 25%;
+    font-size: 49px;
+    line-height: 1.23;
+    color: #fff;
+}
