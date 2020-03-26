@@ -2,8 +2,8 @@
 {
     position: relative;
     width: 700px;
-    height: 170px;
-    top: 550px;
+    height: 100px;
+    top: 640px;
     left: 162px;
     display: flex;
     flex-direction: column;
@@ -35,18 +35,30 @@
 
 .slider__scroll
 {
+    position: absolute;
     width: 100%;
     height: 12px;
-    background-color: #d1eaff;
-    opacity: .3;
+    background: linear-gradient(to right, white 0%, #d1eaff85 0%);
+    z-index: 2;
 }
 
 .slider__scrollItem
 {
     position: relative;
+    left:-10px;
     height: 65px;
     width: 53px;
     background-image:  url('../item.png');
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: 2;
+}
+
+.slider__bg
+{
+    position: absolute;
+    z-index: 0;
+    height: 12px;
+    width: 0%;
+    background-color: white;
 }

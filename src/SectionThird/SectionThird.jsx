@@ -4,25 +4,6 @@ import './css/sectionThird.scss'
 
 export default class SectionThird extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.state =
-        {
-            right: 0,
-            scrollItem: null
-        };
-    }
-
-    mouseMove = ( event ) =>
-    {
-        this.setState(
-            {
-                scrollItem: event.changedTouches[0].screenX
-            } );
-        console.log( event.changedTouches[0].screenX )
-    }
-
     render()
     {
         return (
@@ -38,7 +19,7 @@ export default class SectionThird extends React.Component
                         <h1 className='sectionThird1__title'>Звенья патогенеза СД2</h1>
                     </section>
                 </div>
-                <Slider mouseMove={this.mouseMove} scrollItem={this.state.scrollItem} />
+                <Slider />
             </section>
         )
     }

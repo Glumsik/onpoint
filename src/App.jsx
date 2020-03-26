@@ -1,7 +1,6 @@
 import React from 'react';
 import SliderApp from './SliderApp/SliderApp.jsx'
 import Pagination from './Pagination/Pagination'
-
 import './App.scss';
 
 
@@ -12,7 +11,7 @@ export default class App extends React.Component
     super();
     this.state =
     {
-      scroll: -1560,
+      scroll: 0,
       bg: 1
     };
 
