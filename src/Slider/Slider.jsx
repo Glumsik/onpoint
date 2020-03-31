@@ -11,26 +11,34 @@ export default class SliderApp extends React.Component
 
         };
         this.thMove = null
+        this.scrollWidth = 700
+        this.scrollLeft = 162
         this.shiftX = null
+        this.cell = 0
+        this.bg = null
+        this.slider = null
     }
+
 
     startTouch = ( event ) =>
     {
-        let slider = document.querySelector( 'DIV[class="slider__scrollItem"]' ),
-            scroll = document.querySelector( 'DIV[class="slider__bg"]' );
+        this.bg = event.target.nextSibling
+        this.slider = event.target
 
-        slider.style.transition = '';
-        scroll.style.transition = '';
+        this.slider.style.transition = '';
+        this.bg.style.transition = '';
 
-        this.shiftX = event.targetTouches[0].clientX - document.querySelector( 'DIV[class="slider__scrollItem"]' ).getBoundingClientRect().left
+        this.shiftX = event.targetTouches[0].clientX - this.slider.getBoundingClientRect().left
 
         document.addEventListener( 'touchmove', this.onMouseMove );
         document.addEventListener( 'touchend', this.touchEnd );
     }
 
+
     onMouseMove = ( event ) =>
     {
-        this.thMove = Math.round( event.targetTouches[0].clientX - this.shiftX - document.querySelector( 'DIV[class="slider__scroll"]' ).getBoundingClientRect().left );
+        this.thMove = Math.round( event.targetTouches[0].clientX - this.shiftX - this.scrollLeft );
+
 
         if ( this.thMove < -10 )
         {
@@ -41,48 +49,61 @@ export default class SliderApp extends React.Component
             this.thMove = 690;
         }
 
-        if ( this.thMove > document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 * 3 )
+        event.target.style.left = this.thMove + 'px';
+
+        if ( this.cell !== Math.floor( this.thMove / ( this.scrollWidth / 4 ) ) )
         {
-            document.querySelector( 'DIV[class="sectionThirdInner"]' ).style.right = -0 + 'px';
-        }
-        else if ( this.thMove > document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 )
-        {
-            document.querySelector( 'DIV[class="sectionThirdInner"]' ).style.right = -1024 + 'px';
-        }
-        else if ( this.thMove < document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 )
-        {
-            document.querySelector( 'DIV[class="sectionThirdInner"]' ).style.right = -2048 + 'px';
+            if ( this.thMove < 0 )
+            {
+                return
+            }
+            else
+            {
+                this.cell = Math.floor( this.thMove / ( this.scrollWidth / 4 ) )
+            }
+
+
+            if ( this.cell === 0 )
+            {
+                this.props.scroll( -2048 )
+            }
+            else if ( this.cell === 1 || this.cell === 2 )
+            {
+                this.props.scroll( -1024 )
+            }
+            else if ( this.cell === 3 )
+            {
+                this.props.scroll( -0 )
+            }
         }
 
-        document.querySelector( 'DIV[class="slider__scrollItem"]' ).style.left = this.thMove + 'px';
-        document.querySelector( 'DIV[class="slider__bg"]' ).style.width = this.thMove / 6.8 + '%';
+        this.bg.style.width = this.thMove / 6.8 + '%';
     }
+
 
     realPositionSlider = () =>
     {
-        let slider = document.querySelector( 'DIV[class="slider__scrollItem"]' ),
-            scroll = document.querySelector( 'DIV[class="slider__bg"]' );
+        this.slider.style.transition = '.5s';
+        this.bg.style.transition = '.5s';
 
-        slider.style.transition = '.5s';
-        scroll.style.transition = '.5s';
-
-        if ( this.thMove < document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 )
+        if ( this.thMove < this.scrollWidth / 4 )
         {
-            slider.style.left = -10 + 'px';
-            document.querySelector( 'DIV[class="slider__bg"]' ).style.width = 0 + '%';
+            this.slider.style.left = -10 + 'px';
+            this.bg.style.width = 0 + '%';
         }
-        else if ( this.thMove > document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 * 3 )
+        else if ( this.thMove > this.scrollWidth / 4 * 3 )
         {
-            slider.style.left = 690 + 'px';
-            document.querySelector( 'DIV[class="slider__bg"]' ).style.width = 100 + '%';
+            this.slider.style.left = 690 + 'px';
+            this.bg.style.width = 100 + '%';
         }
-        else if ( document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 < this.thMove < document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 * 3 )
+        else if ( this.scrollWidth / 4 < this.thMove < this.scrollWidth / 4 * 3 )
         {
-            slider.style.left = document.querySelector( 'DIV[class="slider__scroll"]' ).offsetWidth / 4 * 2 + 'px';
-            document.querySelector( 'DIV[class="slider__bg"]' ).style.width = 52 + '%';
+            this.slider.style.left = this.scrollWidth / 4 * 2 + 'px';
+            this.bg.style.width = 52 + '%';
         }
 
     }
+
 
     touchEnd = () =>
     {
@@ -91,12 +112,13 @@ export default class SliderApp extends React.Component
         document.removeEventListener( 'touchend', this.touchEnd );
     }
 
+
     render()
     {
         return (
-            <div className='slider'>
+            <div className='slider' style={{ left: this.scrollLeft + "px", width: this.scrollWidth + 'px' }}>
                 <div className='slider__line'>
-                    <div className='slider__scroll'></div>
+                    <div className='slider__scroll' ></div>
                     <div className='slider__scrollItem' onTouchStart={( event ) => this.startTouch( event )}></div>
                     <div className='slider__bg'></div>
                 </div>
